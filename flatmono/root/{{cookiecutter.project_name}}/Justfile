@@ -1,0 +1,5 @@
+@default:
+    just --list
+
+@setup:
+    echo "Add tool install steps here (create multiplatform commands)"

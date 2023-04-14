@@ -1,0 +1,30 @@
+DIND_IMAGE:='hashicorp/terraform:latest'
+
+@default:
+    just --list
+
+@verify: lint typecheck test
+
+@pr: verify
+    echo "PR is successful!"
+
+@build:
+    echo "We are executing terraform from laptops so no op needed here."
+
+@register:
+    echo "We are executing terraform from laptops so no op needed here."
+
+@docker SUBCOMMAND:
+    echo "We don't run terraform from inside of a docker container due to state, credential mounting, and availability of `just`"
+
+@lint:
+    terraform fmt -check
+
+@typecheck:
+    terraform validate
+
+@test:
+    echo "Unit testing not supported for terraform"
+
+@format:
+    terraform fmt
