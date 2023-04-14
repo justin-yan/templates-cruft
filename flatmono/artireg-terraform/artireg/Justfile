@@ -1,5 +1,9 @@
 DIND_IMAGE:='hashicorp/terraform:latest'
 
+######
+## ODLC Section
+######
+
 @default:
     just --list
 
@@ -13,6 +17,13 @@ DIND_IMAGE:='hashicorp/terraform:latest'
 
 @register:
     echo "We are executing terraform from laptops so no op needed here."
+
+######
+## CodeDLC Section
+######
+
+@init:
+    terraform init
 
 @docker SUBCOMMAND:
     echo "We don't run terraform from inside of a docker container due to state, credential mounting, and availability of `just`"
