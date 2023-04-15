@@ -9,12 +9,9 @@ jobs:
   image-register:
     runs-on: ubuntu-latest
     container:
-      image: {{cookiecutter.image_repo_url}}/dev-image:latest
+      image: ghcr.io/iomorphic/dev-image:latest
       volumes:
         - /usr/bin/docker:/usr/bin/docker
-      credentials:
-        username: _json_key_base64
-        password: {{cookiecutter.secret_payload}}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -27,6 +24,15 @@ jobs:
           registry: us-west1-docker.pkg.dev
           username: _json_key_base64
           password: {{cookiecutter.secret_payload}}
+
+{% raw %}
+      - name: Authenticate via github actions token
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+{% endraw %}
 
       # Needed due to: https://github.com/actions/checkout/issues/766
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"

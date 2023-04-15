@@ -4,4 +4,5 @@ ignored:
   - DL3008  # Allow not pinning versions for apt-get pkgs
 trustedRegistries:
   - docker.io
+  - ghcr.io
   - {{cookiecutter.registry_dns}}

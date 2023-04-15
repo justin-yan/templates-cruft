@@ -1,6 +1,5 @@
 {
     "project_name": "example",
     "github_username": "@justin-yan",
-    "image_repo_url": "us-west1-docker.pkg.dev/iomorphic/images",
-    "secret_payload": "${{secrets.JSONKEY_B64}}"
+    "secret_payload": "$\{\{secrets.JSONKEY_B64\}\}"
 }

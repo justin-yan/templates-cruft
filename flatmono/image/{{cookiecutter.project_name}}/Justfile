@@ -1,5 +1,6 @@
-REPO_URL:='{{cookiecutter.registry_dns}}/{{cookiecutter.repo_path}}'
+PRIVATE_REGISTRY_URL:='{{cookiecutter.registry_dns}}/{{cookiecutter.registry_path}}'
 IMAGE_NAME:='{{cookiecutter.project_name}}'
+DEV_IMAGE:='ghcr.io/iomorphic/dev-image:latest'
 VERSION:='0.0.1'
 GIT_SHORTHASH:=`git rev-parse --short HEAD`
 
@@ -20,34 +21,33 @@ GIT_SHORTHASH:=`git rev-parse --short HEAD`
     docker build -t {{IMAGE_NAME}}_local .
 
 @register:
-    docker tag {{IMAGE_NAME}}_local {{REPO_URL}}/{{IMAGE_NAME}}:latest
-    docker tag {{IMAGE_NAME}}_local {{REPO_URL}}/{{IMAGE_NAME}}:{{VERSION}}
-    docker tag {{IMAGE_NAME}}_local {{REPO_URL}}/{{IMAGE_NAME}}:{{GIT_SHORTHASH}}
-    docker image push --all-tags {{REPO_URL}}/{{IMAGE_NAME}}
-{% endraw %}
-
+    docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:latest
+    docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:{{VERSION}}
+    docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:{{GIT_SHORTHASH}}
+    docker image push --all-tags {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}
 
 ######
 ## CodeDLC Section
 ######
 
 @init:
-    echo "Init not supported for docker"
+    echo "Init not supported for images"
 
 @docker SUBCOMMAND:
-    echo "We don't run docker inside of another docker container for docker builds."
+    docker  run  -v `pwd`:`pwd` -w `pwd` -i -t {{DEV_IMAGE}} just {{SUBCOMMAND}}
+{% endraw %}
 
 @lint:
     hadolint Dockerfile
 
 @typecheck:
-    echo "Typecheck not supported for docker"
+    echo "Typecheck not supported for images"
 
 @test:
-    echo "Unit testing not supported for docker"
+    echo "Unit testing not supported for images"
 
 @format:
-    echo "Re-format not supported for docker"
+    echo "Re-format not supported for images"
 
 
 ######

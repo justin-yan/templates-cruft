@@ -7,12 +7,9 @@ jobs:
   image-pr:
     runs-on: ubuntu-latest
     container:
-      image: {{cookiecutter.image_repo_url}}/dev-image:latest
+      image: ghcr.io/iomorphic/dev-image:latest
       volumes:
         - /usr/bin/docker:/usr/bin/docker
-      credentials:
-        username: _json_key_base64
-        password: {{cookiecutter.secret_payload}}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
