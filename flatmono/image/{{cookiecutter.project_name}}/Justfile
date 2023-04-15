@@ -1,4 +1,4 @@
-REPO_URL:='{{cookiecutter.image_repo_url}}'
+REPO_URL:='{{cookiecutter.registry_dns}}/{{cookiecutter.repo_path}}'
 IMAGE_NAME:='{{cookiecutter.project_name}}'
 VERSION:='0.0.1'
 GIT_SHORTHASH:=`git rev-parse --short HEAD`
@@ -16,7 +16,6 @@ GIT_SHORTHASH:=`git rev-parse --short HEAD`
     echo "PR is successful!"
 
 {% raw %}
-
 @build:
     docker build -t {{IMAGE_NAME}}_local .
 
@@ -25,7 +24,6 @@ GIT_SHORTHASH:=`git rev-parse --short HEAD`
     docker tag {{IMAGE_NAME}}_local {{REPO_URL}}/{{IMAGE_NAME}}:{{VERSION}}
     docker tag {{IMAGE_NAME}}_local {{REPO_URL}}/{{IMAGE_NAME}}:{{GIT_SHORTHASH}}
     docker image push --all-tags {{REPO_URL}}/{{IMAGE_NAME}}
-
 {% endraw %}
 
 
@@ -40,7 +38,7 @@ GIT_SHORTHASH:=`git rev-parse --short HEAD`
     echo "We don't run docker inside of another docker container for docker builds."
 
 @lint:
-    echo "Lint not supported for docker"
+    hadolint Dockerfile
 
 @typecheck:
     echo "Typecheck not supported for docker"
@@ -56,5 +54,7 @@ GIT_SHORTHASH:=`git rev-parse --short HEAD`
 ## ImageDLC Section
 ######
 
+{% raw %}
 @bash: build
     @docker run --rm -it {{IMAGE_NAME}}_local /bin/bash
+{% endraw %}
