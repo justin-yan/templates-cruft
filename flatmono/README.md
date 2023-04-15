@@ -13,8 +13,9 @@ This collection of cruft templates is intended to help bootstrap a flatmono impl
 
 1. Initialize an empty repository in GitHub.
 2. `cruft create https://github.com/justin-yan/templates-cruft --directory='flatmono/root`
-3. Within the `infra` folder, run `cruft create https://github.com/justin-yan/templates-cruft --directory='flatmono/artireg-terraform`
+3. Run `just setup` from the root directory.
+4. Within the `infra` folder, run `cruft create https://github.com/justin-yan/templates-cruft --directory='flatmono/artireg`
     - This example uses GCP, which requires you to have a GCP org, artifact registry activated, gcloud installed and authenticated, and terraform installed locally.  Feel free to substitute with an alternative registry, as we don't rely on any GAR-specific features.
-4. Within the `artireg` folder, run:
+5. Within the `artireg` folder, run:
     - `just init`
     - `terraform apply`

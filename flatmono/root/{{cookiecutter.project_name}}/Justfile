@@ -2,6 +2,17 @@
     just --list
 
 ######
+## CICD Integrations
+######
+
+@infra_pr:
+    git diff --name-only origin/${GITHUB_BASE_REF} HEAD | cut -d "/" -f2 | uniq | xargs -I {} sh -c 'if [ -d infra/{} ]; then cd infra/{} && just pr; fi'
+
+@image_register:
+    git diff --name-only HEAD^1 HEAD -G"VERSION:=" "images/*/Justfile" | cut -d "/" -f2 | uniq | xargs -I {} sh -c 'if [ -d images/{} ]; then cd images/{} && just register; fi'
+
+
+######
 ## ODLC Root setup block
 ######
 

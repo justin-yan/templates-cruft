@@ -1,0 +1,60 @@
+REPO_URL:='{{cookiecutter.image_repo_url}}'
+IMAGE_NAME:='{{cookiecutter.project_name}}'
+VERSION:='0.0.1'
+GIT_SHORTHASH:=`git rev-parse --short HEAD`
+
+######
+## ODLC Section
+######
+
+@default:
+    just --list
+
+@verify: lint typecheck test
+
+@pr: verify
+    echo "PR is successful!"
+
+{% raw %}
+
+@build:
+    docker build -t {{IMAGE_NAME}}_local .
+
+@register:
+    docker tag {{IMAGE_NAME}}_local {{REPO_URL}}/{{IMAGE_NAME}}:latest
+    docker tag {{IMAGE_NAME}}_local {{REPO_URL}}/{{IMAGE_NAME}}:{{VERSION}}
+    docker tag {{IMAGE_NAME}}_local {{REPO_URL}}/{{IMAGE_NAME}}:{{GIT_SHORTHASH}}
+    docker image push --all-tags {{REPO_URL}}/{{IMAGE_NAME}}
+
+{% endraw %}
+
+
+######
+## CodeDLC Section
+######
+
+@init:
+    echo "Init not supported for docker"
+
+@docker SUBCOMMAND:
+    echo "We don't run docker inside of another docker container for docker builds."
+
+@lint:
+    echo "Lint not supported for docker"
+
+@typecheck:
+    echo "Typecheck not supported for docker"
+
+@test:
+    echo "Unit testing not supported for docker"
+
+@format:
+    echo "Re-format not supported for docker"
+
+
+######
+## ImageDLC Section
+######
+
+@bash: build
+    @docker run --rm -it {{IMAGE_NAME}}_local /bin/bash
