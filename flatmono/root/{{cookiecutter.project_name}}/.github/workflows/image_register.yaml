@@ -18,14 +18,14 @@ jobs:
         with:
           fetch-depth: '2'
 
+{% raw %}
       - name: Authenticate via service-account with Google Artifact Registry
         uses: docker/login-action@v2
         with:
           registry: us-west1-docker.pkg.dev
           username: _json_key_base64
-          password: {{cookiecutter.secret_payload}}
+          password: ${{ secrets.PRIVATE_REGISTRY_JSONKEY_B64 }}
 
-{% raw %}
       - name: Authenticate via github actions token
         uses: docker/login-action@v2
         with:

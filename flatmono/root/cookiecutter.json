@@ -1,5 +1,4 @@
 {
     "project_name": "example",
-    "github_username": "@justin-yan",
-    "secret_payload": "$\{\{secrets.JSONKEY_B64\}\}"
+    "github_username": "@justin-yan"
 }
