@@ -2,7 +2,6 @@ PRIVATE_REGISTRY_URL:='{{cookiecutter.registry_dns}}/{{cookiecutter.registry_pat
 IMAGE_NAME:='{{cookiecutter.project_name}}'
 DEV_IMAGE:='ghcr.io/iomorphic/dev-image:latest'
 VERSION:='0.0.1'
-GIT_SHORTHASH:=`git rev-parse --short HEAD`
 
 ######
 ## ODLC Section
@@ -21,9 +20,12 @@ GIT_SHORTHASH:=`git rev-parse --short HEAD`
     docker build -t {{IMAGE_NAME}}_local .
 
 @register: build
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    GIT_SHORTHASH:=`git rev-parse --short HEAD`
     docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:latest
     docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:{{VERSION}}
-    docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:{{GIT_SHORTHASH}}
+    docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:$GIT_SHORTHASH
     docker image push --all-tags {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}
 
 ######
