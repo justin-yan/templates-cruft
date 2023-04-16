@@ -1,6 +1,5 @@
 {
     "project_name": "example",
     "registry_dns": "us-west1-docker.pkg.dev",
-    "registry_path": "iomorphic/images",
-    "secret_payload": "${{secrets.JSONKEY_B64}}"
+    "registry_path": "iomorphic/images"
 }
