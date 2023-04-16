@@ -22,7 +22,7 @@ VERSION:='0.0.1'
 @register: build
     #!/usr/bin/env bash
     set -euxo pipefail
-    GIT_SHORTHASH:=`git rev-parse --short HEAD`
+    GIT_SHORTHASH=`git rev-parse --short HEAD`
     docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:latest
     docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:{{VERSION}}
     docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:$GIT_SHORTHASH
