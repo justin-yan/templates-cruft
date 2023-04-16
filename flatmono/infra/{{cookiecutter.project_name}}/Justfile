@@ -10,7 +10,7 @@ DEV_IMAGE:='ghcr.io/iomorphic/dev-infra:latest'
 
 @verify: lint typecheck test
 
-@pr: verify
+@pr: init verify
     echo "PR is successful!"
 
 @build:
