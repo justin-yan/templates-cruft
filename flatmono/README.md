@@ -23,7 +23,7 @@ A few technology choices are made up front:
 1. `cd images`
 2. `cruft create https://github.com/justin-yan/templates-cruft --directory='flatmono/image'`
 
-
+### Infra
 
 4. Within the `infra` folder, run `cruft create https://github.com/justin-yan/templates-cruft --directory='flatmono/artireg`
     - This example uses GCP, which requires you to have a GCP org, artifact registry activated, gcloud installed and authenticated, and terraform installed locally.  Feel free to substitute with an alternative registry, as we don't rely on any GAR-specific features.
