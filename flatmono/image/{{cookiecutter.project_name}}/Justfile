@@ -20,7 +20,7 @@ GIT_SHORTHASH:=`git rev-parse --short HEAD`
 @build:
     docker build -t {{IMAGE_NAME}}_local .
 
-@register:
+@register: build
     docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:latest
     docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:{{VERSION}}
     docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:{{GIT_SHORTHASH}}
