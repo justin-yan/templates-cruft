@@ -1,6 +1,6 @@
 DEV_IMAGE:='ghcr.io/iomorphic/dev-infra:latest'
 
-
+{% raw %}
 ######
 ## ODLC Section
 ######
@@ -26,10 +26,8 @@ DEV_IMAGE:='ghcr.io/iomorphic/dev-infra:latest'
 @init:
     terraform init
 
-{% raw %}
 @docker SUBCOMMAND:
     docker run -i -v "$HOME/.config/gcloud/application_default_credentials.json":/gcp/adc.json:ro --env GOOGLE_APPLICATION_CREDENTIALS=/gcp/adc.json -v `pwd`:`pwd` -w `pwd` {{DEV_IMAGE}} just {{SUBCOMMAND}}
-{% endraw %}
 
 @lint:
     terraform fmt -check
@@ -42,3 +40,4 @@ DEV_IMAGE:='ghcr.io/iomorphic/dev-infra:latest'
 
 @format:
     terraform fmt
+{% endraw %}

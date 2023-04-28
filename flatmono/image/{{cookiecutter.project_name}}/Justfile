@@ -3,6 +3,7 @@ IMAGE_NAME:='{{cookiecutter.project_name}}'
 DEV_IMAGE:='ghcr.io/iomorphic/dev-image:latest'
 VERSION:='0.0.1'
 
+{% raw %}
 ######
 ## ODLC Section
 ######
@@ -15,7 +16,6 @@ VERSION:='0.0.1'
 @pr: verify
     echo "PR is successful!"
 
-{% raw %}
 @build:
     docker build -t {{IMAGE_NAME}}_local .
 
@@ -37,7 +37,6 @@ VERSION:='0.0.1'
 
 @docker SUBCOMMAND:
     docker  run  -v `pwd`:`pwd` -w `pwd` -i -t {{DEV_IMAGE}} just {{SUBCOMMAND}}
-{% endraw %}
 
 @lint:
     hadolint Dockerfile
@@ -56,7 +55,6 @@ VERSION:='0.0.1'
 ## ImageDLC Section
 ######
 
-{% raw %}
 @bash: build
     @docker run --rm -it {{IMAGE_NAME}}_local /bin/bash
 {% endraw %}
