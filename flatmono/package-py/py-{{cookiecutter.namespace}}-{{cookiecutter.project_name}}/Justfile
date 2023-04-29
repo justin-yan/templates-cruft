@@ -21,13 +21,12 @@ TEST_FOLDER:='tests'
     echo "PR is successful!"
 
 @build:
-    # Replace localdev in Pipfile with proper version
-    sed -i 's/localdev/{{VERSION}}/g' pyproject.toml
-    # Run pybuild
+    # Replace 0.0.1 in pyproject.toml with proper version
+    sed -i '/^version = /s/0.0.1/{{VERSION}}/' pyproject.toml
+    pipenv run python -m build
+    sed -i '/^version = /s/{{VERSION}}/0.0.1/' pyproject.toml
 
-    sed -i 's/{{VERSION}}/localdev/g' pyproject.toml
-
-@register: build
+@register: init build
     echo "TODO: use twine in conjunction with GAR"
 
 ######
