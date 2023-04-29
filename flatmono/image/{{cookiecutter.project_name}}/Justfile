@@ -1,4 +1,3 @@
-PRIVATE_REGISTRY_URL:='{{cookiecutter.registry_dns}}/{{cookiecutter.registry_path}}'
 IMAGE_NAME:='{{cookiecutter.project_name}}'
 DEV_IMAGE:='ghcr.io/iomorphic/dev-image:latest'
 VERSION:='0.0.1'
@@ -23,10 +22,10 @@ VERSION:='0.0.1'
     #!/usr/bin/env bash
     set -euxo pipefail
     GIT_SHORTHASH=`git rev-parse --short HEAD`
-    docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:latest
-    docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:{{VERSION}}
-    docker tag {{IMAGE_NAME}}_local {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}:$GIT_SHORTHASH
-    docker image push --all-tags {{PRIVATE_REGISTRY_URL}}/{{IMAGE_NAME}}
+    docker tag {{IMAGE_NAME}}_local $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}:latest
+    docker tag {{IMAGE_NAME}}_local $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}:{{VERSION}}
+    docker tag {{IMAGE_NAME}}_local $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}:$GIT_SHORTHASH
+    docker image push --all-tags $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}
 
 ######
 ## CodeDLC Section

@@ -1,5 +1,4 @@
 {
     "project_name": "example",
-    "registry_dns": "us-west1-docker.pkg.dev",
-    "registry_path": "iomorphic/images"
+    "registry_dns": "us-west1-docker.pkg.dev"
 }
