@@ -35,7 +35,7 @@ TEST_FOLDER:='tests'
 ######
 
 @init:
-    [ -f Pipfile.lock ] && pipenv lock
+    [ -f Pipfile.lock ] && echo "Lockfile already exists" || pipenv lock
     pipenv sync --dev
 
 @docker SUBCOMMAND:
