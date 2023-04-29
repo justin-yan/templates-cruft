@@ -82,3 +82,27 @@ setup:
     else
         echo "terraform already installed"
     fi
+
+    #####
+    ### python toolchain local dev setup
+    #####
+    if ! command -v pyenv &> /dev/null
+    then
+        apt-get update && apt-get install -y --no-install-recommends make build-essential python3-dev liblzma-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libssl-dev libffi-dev
+        curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+        echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+        echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+        echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+        pyenv install 3.10.6 && pyenv global 3.10.6 && pyenv rehash
+    else
+        echo "pyenv already installed"
+    fi
+
+    if ! command -v pipenv &> /dev/null
+    then
+        pip install --user pipx
+        pipx ensurepath
+        pipx install pipenv
+    else
+        echo "pipenv already installed"
+    fi

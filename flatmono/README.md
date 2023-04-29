@@ -32,4 +32,3 @@ A few technology choices are made up front:
 
 1. `cd packages`
 2. `cruft create https://github.com/justin-yan/templates-cruft --directory='flatmono/package-py'`
-
