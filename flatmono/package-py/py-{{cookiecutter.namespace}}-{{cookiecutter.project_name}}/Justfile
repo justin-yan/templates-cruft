@@ -1,0 +1,62 @@
+NAMESPACE:='{{cookiecutter.namespace}}'
+PROJECT:='{{cookiecutter.project_name}}'
+VERSION:='0.0.1'
+DEV_IMAGE:='ghcr.io/iomorphic/dev-python:latest'
+SRC_FOLDER:='src'
+TEST_FOLDER:='tests'
+
+
+{% raw %}
+######
+## ODLC Section
+######
+
+@default:
+    just --list
+
+@verify: lint typecheck test
+    echo "Done with Verification"
+
+@pr: init verify
+    echo "PR is successful!"
+
+@build:
+    # Replace localdev in Pipfile with proper version
+    sed -i 's/localdev/{{VERSION}}/g' pyproject.toml
+    # Run pybuild
+
+    sed -i 's/{{VERSION}}/localdev/g' pyproject.toml
+
+@register: build
+    echo "TODO: use twine in conjunction with GAR"
+
+######
+## CodeDLC Section
+######
+
+@init:
+    [ -f Pipfile.lock ] && pipenv lock
+    pipenv sync --dev
+
+@docker SUBCOMMAND:
+    echo "TODO: figure out how to run this with your local VENV"
+    docker run -i -v `pwd`:`pwd` -w `pwd` {{DEV_IMAGE}} just {{SUBCOMMAND}}
+
+@lint:
+    echo "TODO: replace with ruff"
+    pipenv run flake8 {{SRC_FOLDER}}
+    pipenv run isort . --check --diff
+    test ! -e {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py || { echo "__init__.py in root package not permitted"; exit 1; }
+
+typecheck:
+    pipenv run mypy --namespace-packages --explicit-package-bases -p {{NAMESPACE}}.{{PROJECT}}
+    pipenv run mypy --check-untyped-defs --namespace-packages tests
+
+test:
+    pipenv run pytest --hypothesis-show-statistics {{TEST_FOLDER}}
+
+format:
+    pipenv run black --verbose {{SRC_FOLDER}} {{TEST_FOLDER}}
+    pipenv run isort .
+    rm -f {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py
+{% endraw %}
