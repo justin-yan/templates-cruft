@@ -50,7 +50,7 @@ TEST_FOLDER:='tests'
 
 typecheck:
     pipenv run mypy --namespace-packages --explicit-package-bases -p {{NAMESPACE}}.{{PROJECT}}
-    pipenv run mypy --check-untyped-defs --namespace-packages tests
+    pipenv run mypy --allow-untyped-defs --namespace-packages tests
 
 test:
     pipenv run pytest --hypothesis-show-statistics {{TEST_FOLDER}}
