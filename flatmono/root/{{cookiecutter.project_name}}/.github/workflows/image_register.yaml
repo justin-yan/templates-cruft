@@ -18,22 +18,23 @@ jobs:
         with:
           fetch-depth: '2'
 
-{% raw %}
       - name: Authenticate via service-account with Google Artifact Registry
         uses: docker/login-action@v2
         with:
-          registry: us-west1-docker.pkg.dev
-          username: _json_key_base64
-          password: ${{ secrets.PRIVATE_REGISTRY_JSONKEY_B64 }}
+          registry: {{ cookiecutter.docker_private_registry_dns }}
+          username: {{ cookiecutter.docker_private_registry_username }}
+          {% raw %}password: ${{ secrets.PRIVATE_REGISTRY_JSONKEY_B64 }}
 
       - name: Authenticate via github actions token
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-{% endraw %}
+          password: ${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
       # Needed due to: https://github.com/actions/checkout/issues/766
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
-      - run: just register images
+      - env:
+          PUBLIC_REGISTRY_URL: ghcr.io/iomorphic
+          PRIVATE_REGISTRY_URL: {{cookiecutter.docker_private_registry_dns}}/{{cookiecutter.docker_private_registry_path}}
+        run: just register images
