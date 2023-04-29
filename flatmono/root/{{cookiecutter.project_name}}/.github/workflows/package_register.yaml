@@ -1,0 +1,27 @@
+name: Package Register
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/**'
+jobs:
+  package-register:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/iomorphic/dev-py:latest
+      volumes:
+        - /usr/bin/docker:/usr/bin/docker
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: '2'
+
+      # Needed due to: https://github.com/actions/checkout/issues/766
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - env:
+          PY_PRIVATE_REPO_URL: {{ cookiecutter.python_private_repo_url }}
+          PY_PRIVATE_REPO_USERNAME: {{ cookiecutter.python_private_repo_username }}
+          {% raw %}PY_PRIVATE_REPO_PASSWORD: ${{ secrets.PRIVATE_REGISTRY_JSONKEY_B64 }}{% endraw %}
+        run: just register packages

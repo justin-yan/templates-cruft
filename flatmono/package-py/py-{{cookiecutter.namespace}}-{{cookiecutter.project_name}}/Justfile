@@ -27,7 +27,8 @@ TEST_FOLDER:='tests'
     sed -i '/^version = /s/{{VERSION}}/0.0.1/' pyproject.toml
 
 @register: init build
-    echo "TODO: use twine in conjunction with GAR"
+    pipenv run twine upload --repository-url $PY_PRIVATE_REPO_URL -u $PY_PRIVATE_REPO_USERNAME -p $PY_PRIVATE_REPO_PASSWORD dist/*
+
 
 ######
 ## CodeDLC Section
