@@ -27,6 +27,9 @@ VERSION:='0.0.1'
     docker tag {{IMAGE_NAME}}_local $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}:$GIT_SHORTHASH
     docker image push --all-tags $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}
 
+@githook HOOKTYPE:
+    echo "No Hooks Implemented"
+
 ######
 ## CodeDLC Section
 ######

@@ -29,6 +29,8 @@ TEST_FOLDER:='tests'
 @register: init build
     pipenv run twine upload --repository-url $PY_PRIVATE_REPO_URL -u $PY_PRIVATE_REPO_USERNAME -p $PY_PRIVATE_REPO_PASSWORD dist/*
 
+@githook HOOKTYPE:
+    echo "No Hooks Implemented"
 
 ######
 ## CodeDLC Section

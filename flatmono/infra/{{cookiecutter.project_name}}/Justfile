@@ -19,6 +19,9 @@ DEV_IMAGE:='ghcr.io/iomorphic/dev-infra:latest'
 @register: build
     echo "We are executing terraform from laptops so no op needed here."
 
+@githook HOOKTYPE:
+    echo "No Hooks Implemented"
+
 ######
 ## CodeDLC Section
 ######
