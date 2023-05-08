@@ -63,3 +63,6 @@ VERSION:='0.0.1'
 stats:
     scc --by-file Dockerfile
 {% endraw %}
+######
+## Custom Section
+######
