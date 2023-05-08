@@ -59,4 +59,7 @@ format:
     pipenv run black --verbose {{SRC_FOLDER}} {{TEST_FOLDER}}
     pipenv run isort .
     rm -f {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py
+
+stats:
+    scc --by-file --include-ext py
 {% endraw %}

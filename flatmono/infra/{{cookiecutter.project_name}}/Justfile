@@ -43,4 +43,7 @@ DEV_IMAGE:='ghcr.io/iomorphic/dev-infra:latest'
 
 @format:
     terraform fmt
+
+stats:
+    scc --by-file --include-ext tf
 {% endraw %}
