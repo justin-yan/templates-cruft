@@ -44,4 +44,10 @@ test:
 format:
     pipenv run black --verbose {{SRC_FOLDER}} {{TEST_FOLDER}}
     pipenv run isort .
+
+stats:
+    scc --by-file --include-ext py
 {% endraw %}
+######
+## Custom Section
+######
