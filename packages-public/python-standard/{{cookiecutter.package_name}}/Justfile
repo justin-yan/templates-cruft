@@ -49,6 +49,11 @@ stats:
     pipenv run coverage run -m pytest {{TEST_FOLDER}}
     pipenv run coverage report -m
     scc --by-file --include-ext py
+
+crossverify:
+    pyenv install -s 3.8.15 3.9.15 3.10.8 3.11.3
+    pyenv global system 3.8.15 3.9.15 3.10.8 3.11.3
+    nox
 {% endraw %}
 ######
 ## Custom Section
