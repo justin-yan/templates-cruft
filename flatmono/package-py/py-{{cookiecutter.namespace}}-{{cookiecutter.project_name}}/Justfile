@@ -73,7 +73,7 @@ crossverify:
     #!/usr/bin/env bash
     set -euxo pipefail
 
-    for py in 3.8.15 3.9.15 3.10.8 3.11.3
+    for py in 3.10.8 3.11.3
     do
         pyenv install -s $py
         pyenv local $py
