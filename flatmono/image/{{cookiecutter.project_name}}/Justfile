@@ -52,6 +52,8 @@ VERSION:='0.0.1'
 @format:
     echo "Re-format not supported for images"
 
+stats:
+    scc --by-file Dockerfile
 
 ######
 ## ImageDLC Section
@@ -59,9 +61,6 @@ VERSION:='0.0.1'
 
 @bash: build
     @docker run --rm -it {{IMAGE_NAME}}_local /bin/bash
-
-stats:
-    scc --by-file Dockerfile
 {% endraw %}
 ######
 ## Custom Section
