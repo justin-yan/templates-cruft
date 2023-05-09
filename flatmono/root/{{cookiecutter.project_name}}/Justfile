@@ -111,5 +111,3 @@ setup:
     else
         echo "pipenv already installed"
     fi
-
-    pipx install nox
