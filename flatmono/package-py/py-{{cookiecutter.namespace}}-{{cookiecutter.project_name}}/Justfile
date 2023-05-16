@@ -1,7 +1,7 @@
 NAMESPACE:='{{cookiecutter.namespace}}'
 PROJECT:='{{cookiecutter.project_name}}'
 VERSION:='0.0.1'
-DEV_IMAGE:='ghcr.io/iomorphic/dev-python:latest'
+DEV_IMAGE:='ghcr.io/iomorphic/dev-py:latest'
 SRC_FOLDER:='src'
 TEST_FOLDER:='tests'
 

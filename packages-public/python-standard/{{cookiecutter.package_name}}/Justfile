@@ -1,5 +1,5 @@
 PACKAGE:='{{cookiecutter.package_name}}'
-DEV_IMAGE:='ghcr.io/iomorphic/dev-python:latest'
+DEV_IMAGE:='ghcr.io/iomorphic/dev-py:latest'
 SRC_FOLDER:='src'
 TEST_FOLDER:='tests'
 
