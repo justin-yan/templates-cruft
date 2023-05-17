@@ -1,5 +1,5 @@
 NAMESPACE:='{{cookiecutter.namespace}}'
-PROJECT:='{{cookiecutter.service_name}}'
+SERVICE_NAME:='{{cookiecutter.service_name}}'
 VERSION:='0.0.1'
 DEV_IMAGE:='ghcr.io/iomorphic/dev-py:latest'
 SRC_FOLDER:='src'
@@ -21,16 +21,16 @@ TEST_FOLDER:='tests'
     echo "PR is successful!"
 
 @build:
-    docker build -t {{IMAGE_NAME}}_local .
+    docker build -t {{SERVICE_NAME}}_local .
 
 @register: build
     #!/usr/bin/env bash
     set -euxo pipefail
     GIT_SHORTHASH=`git rev-parse --short HEAD`
-    docker tag {{IMAGE_NAME}}_local $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}:latest
-    docker tag {{IMAGE_NAME}}_local $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}:{{VERSION}}
-    docker tag {{IMAGE_NAME}}_local $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}:$GIT_SHORTHASH
-    docker image push --all-tags $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}
+    docker tag {{SERVICE_NAME}}_local $PRIVATE_REGISTRY_URL/{{SERVICE_NAME}}:latest
+    docker tag {{SERVICE_NAME}}_local $PRIVATE_REGISTRY_URL/{{SERVICE_NAME}}:{{VERSION}}
+    docker tag {{SERVICE_NAME}}_local $PRIVATE_REGISTRY_URL/{{SERVICE_NAME}}:$GIT_SHORTHASH
+    docker image push --all-tags $PRIVATE_REGISTRY_URL/{{SERVICE_NAME}}
 
 @githook HOOKTYPE:
     echo "No Hooks Implemented"
@@ -52,15 +52,14 @@ TEST_FOLDER:='tests'
     test ! -e {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py || { echo "__init__.py in root package not permitted"; exit 1; }
 
 @typecheck:
-    pipenv run mypy --namespace-packages --explicit-package-bases -p {{NAMESPACE}}.{{PROJECT}}
+    pipenv run mypy --namespace-packages --explicit-package-bases -p {{NAMESPACE}}.{{SERVICE_NAME}}
     pipenv run mypy --allow-untyped-defs --namespace-packages tests
 
 @test:
     pipenv run pytest --hypothesis-show-statistics {{TEST_FOLDER}}
 
 @format:
-    pipenv run black --verbose {{SRC_FOLDER}} {{TEST_FOLDER}}
-    pipenv run isort .
+    pipenv run ruff check --fix {{SRC_FOLDER}} {{TEST_FOLDER}}
     rm -f {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py
 
 @stats:

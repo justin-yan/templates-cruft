@@ -42,8 +42,7 @@ TEST_FOLDER:='tests'
     pipenv run pytest --hypothesis-show-statistics {{TEST_FOLDER}}
 
 @format:
-    pipenv run black --verbose {{SRC_FOLDER}} {{TEST_FOLDER}}
-    pipenv run isort .
+    pipenv run ruff check --fix {{SRC_FOLDER}} {{TEST_FOLDER}}
 
 @stats:
     pipenv run coverage run -m pytest {{TEST_FOLDER}}
