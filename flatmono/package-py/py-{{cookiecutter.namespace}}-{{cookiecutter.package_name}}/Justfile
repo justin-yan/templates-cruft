@@ -1,5 +1,5 @@
 NAMESPACE:='{{cookiecutter.namespace}}'
-PROJECT:='{{cookiecutter.project_name}}'
+PROJECT:='{{cookiecutter.package_name}}'
 VERSION:='0.0.1'
 DEV_IMAGE:='ghcr.io/iomorphic/dev-py:latest'
 SRC_FOLDER:='src'

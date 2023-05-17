@@ -1,0 +1,73 @@
+NAMESPACE:='{{cookiecutter.namespace}}'
+PROJECT:='{{cookiecutter.service_name}}'
+VERSION:='0.0.1'
+DEV_IMAGE:='ghcr.io/iomorphic/dev-py:latest'
+SRC_FOLDER:='src'
+TEST_FOLDER:='tests'
+
+
+{% raw %}
+######
+## ODLC Section
+######
+
+@default:
+    just --list
+
+@verify: lint typecheck test
+    echo "Done with Verification"
+
+@pr: init verify
+    echo "PR is successful!"
+
+@build:
+    docker build -t {{IMAGE_NAME}}_local .
+
+@register: build
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    GIT_SHORTHASH=`git rev-parse --short HEAD`
+    docker tag {{IMAGE_NAME}}_local $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}:latest
+    docker tag {{IMAGE_NAME}}_local $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}:{{VERSION}}
+    docker tag {{IMAGE_NAME}}_local $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}:$GIT_SHORTHASH
+    docker image push --all-tags $PRIVATE_REGISTRY_URL/{{IMAGE_NAME}}
+
+@githook HOOKTYPE:
+    echo "No Hooks Implemented"
+
+######
+## CodeDLC Section
+######
+
+@init:
+    [ -f Pipfile.lock ] && echo "Lockfile already exists" || pipenv lock
+    pipenv sync --dev
+
+@docker SUBCOMMAND:
+    echo "TODO: figure out how to run this with your local VENV"
+    docker run -i -v `pwd`:`pwd` -w `pwd` {{DEV_IMAGE}} just {{SUBCOMMAND}}
+
+@lint:
+    pipenv run ruff check {{SRC_FOLDER}} {{TEST_FOLDER}}
+    test ! -e {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py || { echo "__init__.py in root package not permitted"; exit 1; }
+
+typecheck:
+    pipenv run mypy --namespace-packages --explicit-package-bases -p {{NAMESPACE}}.{{PROJECT}}
+    pipenv run mypy --allow-untyped-defs --namespace-packages tests
+
+test:
+    pipenv run pytest --hypothesis-show-statistics {{TEST_FOLDER}}
+
+format:
+    pipenv run black --verbose {{SRC_FOLDER}} {{TEST_FOLDER}}
+    pipenv run isort .
+    rm -f {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py
+
+stats:
+    pipenv run coverage run -m pytest {{TEST_FOLDER}}
+    pipenv run coverage report -m
+    scc --by-file --include-ext py
+{% endraw %}
+######
+## Custom Section
+######

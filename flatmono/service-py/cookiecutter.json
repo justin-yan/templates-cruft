@@ -1,4 +1,4 @@
 {
     "namespace": "iomorphic",
-    "package_name": "example"
+    "service_name": "example"
 }
