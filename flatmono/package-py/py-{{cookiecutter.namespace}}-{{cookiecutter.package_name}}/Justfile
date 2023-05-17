@@ -48,19 +48,19 @@ TEST_FOLDER:='tests'
     pipenv run ruff check {{SRC_FOLDER}} {{TEST_FOLDER}}
     test ! -e {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py || { echo "__init__.py in root package not permitted"; exit 1; }
 
-typecheck:
+@typecheck:
     pipenv run mypy --namespace-packages --explicit-package-bases -p {{NAMESPACE}}.{{PROJECT}}
     pipenv run mypy --allow-untyped-defs --namespace-packages tests
 
-test:
+@test:
     pipenv run pytest --hypothesis-show-statistics {{TEST_FOLDER}}
 
-format:
+@format:
     pipenv run black --verbose {{SRC_FOLDER}} {{TEST_FOLDER}}
     pipenv run isort .
     rm -f {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py
 
-stats:
+@stats:
     pipenv run coverage run -m pytest {{TEST_FOLDER}}
     pipenv run coverage report -m
     scc --by-file --include-ext py
@@ -69,7 +69,7 @@ stats:
 ## PackageDLC Section
 ######
 
-crossverify:
+@crossverify:
     #!/usr/bin/env bash
     set -euxo pipefail
 

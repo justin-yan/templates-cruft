@@ -52,7 +52,7 @@ VERSION:='0.0.1'
 @format:
     echo "Re-format not supported for images"
 
-stats:
+@stats:
     scc --by-file Dockerfile
 
 ######

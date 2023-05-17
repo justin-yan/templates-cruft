@@ -1,4 +1,5 @@
 {
     "namespace": "iomorphic",
-    "service_name": "example"
+    "service_name": "example",
+    "registry_dns": "us-west1-docker.pkg.dev"
 }

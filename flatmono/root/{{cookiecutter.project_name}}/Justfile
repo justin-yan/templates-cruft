@@ -23,11 +23,11 @@
 ######
 
 [macos]
-setup:
+@setup:
     echo "Add mac installation scripts here."
 
 [linux]
-setup:
+@setup:
     #!/usr/bin/env bash
     set -euxo pipefail
 
