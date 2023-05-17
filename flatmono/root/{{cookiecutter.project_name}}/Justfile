@@ -10,7 +10,7 @@
     git diff --name-only origin/${GITHUB_BASE_REF} HEAD | grep "^{{ASSETTYPE}}/.*" | cut -d "/" -f2 | uniq | xargs -I {} sh -c 'if [ -d {{ASSETTYPE}}/{} ]; then just {{ASSETTYPE}}/{}/pr; fi'
 
 @register ASSETTYPE:
-    git diff --name-only HEAD^1 HEAD -G"VERSION:=" "{{ASSETTYPE}}/*/Justfile" | cut -d "/" -f2 | uniq | xargs -I {} sh -c 'if [ -d {{ASSETTYPE}}/{} ]; then just {{ASSETTYPE}}/{}/register; fi'
+    git diff --name-only HEAD^1 HEAD -G"^VERSION:=" "{{ASSETTYPE}}/*/Justfile" | cut -d "/" -f2 | uniq | xargs -I {} sh -c 'if [ -d {{ASSETTYPE}}/{} ]; then just {{ASSETTYPE}}/{}/register; fi'
 
 @githook HOOKTYPE:
     # This is an imperfect heuristic for the set of projects you want to invoke hooks in.
