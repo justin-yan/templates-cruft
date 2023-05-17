@@ -3,6 +3,9 @@ version: '3.8'
 services:
   fastapi:
     build: .
+    environment:
+      - APP_NAME=${APP_NAME}
+      - VERSION=${VERSION}
     ports:
       - "8000:8000"
     volumes:

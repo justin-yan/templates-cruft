@@ -73,6 +73,8 @@ TEST_FOLDER:='tests'
 
 @devserver FORCE="noforce":
     #!/usr/bin/env sh
+    export APP_NAME='{{SERVICE_NAME}}'
+    export VERSION='{{VERSION}}'
     if [ "{{FORCE}}" = "force" ]; then
         docker-compose up --force-recreate --build
     else
