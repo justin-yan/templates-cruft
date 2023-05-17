@@ -14,7 +14,7 @@
 
 @githook HOOKTYPE:
     # This is an imperfect heuristic for the set of projects you want to invoke hooks in.
-    git diff --name-only origin/main HEAD | grep -E "^(images|packages|infra)/.*" | cut -d "/" -f1,2 | uniq | xargs -I {} sh -c 'if [ -d {} ]; then just {}/githook {{HOOKTYPE}}; fi'
+    git diff --name-only origin/main HEAD | grep -E "^(images|packages|infra|services)/.*" | cut -d "/" -f1,2 | uniq | xargs -I {} sh -c 'if [ -d {} ]; then just {}/githook {{HOOKTYPE}}; fi'
 {% endraw %}
 
 
