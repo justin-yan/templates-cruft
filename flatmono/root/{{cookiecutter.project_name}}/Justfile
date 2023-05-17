@@ -22,6 +22,10 @@
 ## ODLC Root setup block
 ######
 
+@massupdate:
+    ls -d */*/ | xargs -I {} sh -c 'cd {}; cruft update -y && git stash; cd ../..'
+    while git stash list | grep -q 'stash@'; do git stash pop; done
+
 [macos]
 @setup:
     echo "Add mac installation scripts here."
