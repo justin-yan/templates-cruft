@@ -16,13 +16,13 @@ def create_app() -> FastAPI:
 
 
     @lru_cache()
-    def custom_openapi():
+    def custom_openapi() -> dict:
         return get_openapi(
             title=config.app_name,
             version=config.version,
             description=config.environment,
             routes=app.routes,
         )
-    app.openapi = custom_openapi
+    app.openapi = custom_openapi # type: ignore[method-assign]
 
     return app
