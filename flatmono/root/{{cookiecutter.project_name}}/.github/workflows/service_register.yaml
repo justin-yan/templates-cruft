@@ -1,12 +1,12 @@
-name: Image Register
+name: Service Register
 on:
   push:
     branches:
       - main
     paths:
-      - 'images/**'
+      - 'services/**'
 jobs:
-  image-register:
+  service-register:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/iomorphic/dev-image:latest
@@ -23,18 +23,11 @@ jobs:
         with:
           registry: {{ cookiecutter.docker_private_registry_dns }}
           username: {{ cookiecutter.docker_private_registry_username }}
-          {% raw %}password: ${{ secrets.PRIVATE_REGISTRY_JSONKEY_B64 }}
-
-      - name: Authenticate via github actions token
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          {% raw %}password: ${{ secrets.PRIVATE_REGISTRY_JSONKEY_B64 }}{% endraw %}
 
       # Needed due to: https://github.com/actions/checkout/issues/766
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - env:
-          PUBLIC_REGISTRY_URL: ghcr.io/{{cookiecutter.project_name}}
-          PRIVATE_REGISTRY_URL: {{cookiecutter.docker_private_registry_dns}}/{{cookiecutter.project_name}}/images
-        run: just register images
+          PRIVATE_REGISTRY_URL: {{cookiecutter.docker_private_registry_dns}}/{{cookiecutter.project_name}}/services
+        run: just register services
+

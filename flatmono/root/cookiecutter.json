@@ -4,6 +4,5 @@
     "python_private_repo_url": "https://example.com",
     "python_private_repo_username": "example",
     "docker_private_registry_dns": "example.com",
-    "docker_private_registry_path": "namespace/packagename",
     "docker_private_registry_username": "example"
 }
