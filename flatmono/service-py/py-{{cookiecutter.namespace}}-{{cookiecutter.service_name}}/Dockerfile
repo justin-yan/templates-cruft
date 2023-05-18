@@ -8,4 +8,4 @@ WORKDIR /svc
 COPY . /svc
 
 RUN pipenv sync
-CMD exec pipenv run uvicorn scripts.main:app --port $PORT
+CMD exec pipenv run uvicorn scripts.main:app --host 0.0.0.0 --port $PORT
