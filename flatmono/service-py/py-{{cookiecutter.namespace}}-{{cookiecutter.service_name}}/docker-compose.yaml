@@ -6,6 +6,9 @@ services:
     environment:
       - APP_NAME=${APP_NAME}
       - VERSION=${VERSION}
+      ######
+      ## Custom Env Vars Below
+      ######
     ports:
       - "8000:8000"
     volumes:
