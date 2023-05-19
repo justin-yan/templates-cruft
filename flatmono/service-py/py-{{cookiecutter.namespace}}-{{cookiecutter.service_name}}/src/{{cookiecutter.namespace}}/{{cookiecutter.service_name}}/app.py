@@ -1,9 +1,11 @@
+from functools import lru_cache
+
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
-from functools import lru_cache
 
 from {{cookiecutter.namespace}}.{{cookiecutter.service_name}}.infrastructure.config import Config
 from {{cookiecutter.namespace}}.{{cookiecutter.service_name}}.ports.api.health import health_router
+
 
 def create_app() -> FastAPI:
     app = FastAPI()
@@ -23,6 +25,7 @@ def create_app() -> FastAPI:
             description=config.environment,
             routes=app.routes,
         )
-    app.openapi = custom_openapi # type: ignore[method-assign]
+
+    app.openapi = custom_openapi  # type: ignore[method-assign]
 
     return app

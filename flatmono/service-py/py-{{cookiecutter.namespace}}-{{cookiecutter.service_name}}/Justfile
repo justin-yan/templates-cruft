@@ -60,6 +60,7 @@ TEST_FOLDER:='tests'
 
 @format:
     pipenv run ruff check --fix {{SRC_FOLDER}} {{TEST_FOLDER}}
+    pipenv run black --verbose {{SRC_FOLDER}} {{TEST_FOLDER}}
     rm -f {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py
 
 @stats:
