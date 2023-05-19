@@ -16,7 +16,6 @@ def create_app() -> FastAPI:
     ########
     app.include_router(health_router)
 
-
     @lru_cache()
     def custom_openapi() -> dict:
         return get_openapi(
