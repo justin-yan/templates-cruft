@@ -1,4 +1,3 @@
 {
-    "project_name": "example",
-    "registry_dns": "us-west1-docker.pkg.dev"
+    "project_name": "example"
 }

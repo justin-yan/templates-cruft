@@ -5,4 +5,6 @@ ignored:
 trustedRegistries:
   - docker.io
   - ghcr.io
-  - {{cookiecutter.registry_dns}}
+  ######
+  ### Custom Private Registries Below
+  ######
