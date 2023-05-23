@@ -1,5 +1,5 @@
 NAMESPACE:='{{cookiecutter.namespace}}'
-PROJECT:='{{cookiecutter.package_name}}'
+PACKAGE_NAME:='{{cookiecutter.package_name}}'
 VERSION:='0.0.1'
 DEV_IMAGE:='ghcr.io/iomorphic/dev-py:latest'
 SRC_FOLDER:='src'
@@ -49,7 +49,7 @@ TEST_FOLDER:='tests'
     test ! -e {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py || { echo "__init__.py in root package not permitted"; exit 1; }
 
 @typecheck:
-    pipenv run mypy --namespace-packages --explicit-package-bases -p {{NAMESPACE}}.{{PROJECT}}
+    pipenv run mypy --namespace-packages --explicit-package-bases -p {{NAMESPACE}}.{{PACKAGE_NAME}}
     pipenv run mypy --allow-untyped-defs --namespace-packages tests
 
 @test:
@@ -57,6 +57,7 @@ TEST_FOLDER:='tests'
 
 @format:
     pipenv run ruff check --fix {{SRC_FOLDER}} {{TEST_FOLDER}}
+    pipenv run black --verbose {{SRC_FOLDER}} {{TEST_FOLDER}}
     rm -f {{SRC_FOLDER}}/{{NAMESPACE}}/__init__.py
 
 @stats:
@@ -82,7 +83,7 @@ TEST_FOLDER:='tests'
         pip -q install ruff mypy pytest hypothesis
         pip -q install -e .
         ruff check {{SRC_FOLDER}} {{TEST_FOLDER}}
-        mypy --namespace-packages --explicit-package-bases -p {{NAMESPACE}}.{{PROJECT}}
+        mypy --namespace-packages --explicit-package-bases -p {{NAMESPACE}}.{{PACKAGE_NAME}}
         mypy --allow-untyped-defs --namespace-packages tests
         pytest --hypothesis-show-statistics {{TEST_FOLDER}}
         deactivate > /dev/null 2> /dev/null
