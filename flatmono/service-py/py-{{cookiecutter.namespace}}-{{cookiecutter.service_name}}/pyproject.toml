@@ -7,9 +7,9 @@ name = "{{cookiecutter.namespace}}-{{cookiecutter.service_name}}"
 version = "0.0.1"
 requires-python = ">=3.11"
 dependencies = [
-    "fastapi",
-    "uvicorn",
-    "pydantic",
+    "fastapi>0.94",
+    "uvicorn>0.19",
+    "pydantic>1.1",
     ######
     ### Custom Dependencies Below
     ######
