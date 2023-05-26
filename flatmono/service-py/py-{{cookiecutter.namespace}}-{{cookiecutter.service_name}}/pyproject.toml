@@ -9,7 +9,9 @@ requires-python = ">=3.11"
 dependencies = [
     "fastapi>0.94",
     "uvicorn>0.19",
+    "gunicorn>19.6",
     "pydantic>1.1",
+    "returns>0.17",
     ######
     ### Custom Dependencies Below
     ######
@@ -47,10 +49,18 @@ addopts = "-ra -q"
 
 [tool.mypy]
 mypy_path = "src"
-disallow_untyped_defs = true
-disallow_any_unimported = true
-no_implicit_optional = true
+plugins = "returns.contrib.mypy.returns_plugin"
+allow_redefinition = false
 check_untyped_defs = true
-warn_return_any = true
-show_error_codes = true
+ignore_errors = false
+ignore_missing_imports = true
+implicit_reexport = false
+local_partial_types = true
+no_implicit_optional = true
+strict_equality = true
+strict_optional = true
+warn_no_return = true
+warn_redundant_casts = true
+warn_unreachable = true
+warn_unused_configs = true
 warn_unused_ignores = true
