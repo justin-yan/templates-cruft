@@ -1,4 +1,4 @@
-FROM {{cookiecutter.registry_dns}}/{{cookiecutter.namespace}}/images/service-py:latest
+FROM ghcr.io/{{cookiecutter.namespace}}/images/service-py:latest
 
 ENV PYTHONUNBUFFERED True
 # https://cloud.google.com/run/docs/issues#home

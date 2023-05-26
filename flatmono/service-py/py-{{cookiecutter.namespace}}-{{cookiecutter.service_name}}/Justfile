@@ -76,7 +76,7 @@ TEST_FOLDER:='tests'
     #!/usr/bin/env sh
     export APP_NAME='{{SERVICE_NAME}}'
     export VERSION='{{VERSION}}'
-    if [ "{{FORCE}}" = "force" ]; then
+    if [ "{{FORCE}}" = "--force" ]  || [ "{{FORCE}}" = "-f" ]; then
         docker-compose up --force-recreate --build
     else
         docker-compose up
