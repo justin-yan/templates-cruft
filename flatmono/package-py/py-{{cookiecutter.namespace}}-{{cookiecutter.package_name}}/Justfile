@@ -53,7 +53,7 @@ TEST_FOLDER:='tests'
     pipenv run mypy --allow-untyped-defs --namespace-packages tests
 
 @test:
-    pipenv run pytest --hypothesis-show-statistics {{TEST_FOLDER}}
+    pipenv run pytest --hypothesis-show-statistics {{SRC_FOLDER}} {{TEST_FOLDER}}
 
 @format:
     pipenv run ruff check --fix {{SRC_FOLDER}} {{TEST_FOLDER}}
