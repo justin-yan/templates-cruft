@@ -1,4 +1,4 @@
-IMAGE_NAME:='{{cookiecutter.project_name}}'
+IMAGE_NAME:='{{cookiecutter.image_name}}'
 DEV_IMAGE:='ghcr.io/iomorphic/dev-image:latest'
 VERSION:='0.0.1'
 
