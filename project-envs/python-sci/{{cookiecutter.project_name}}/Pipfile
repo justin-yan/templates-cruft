@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+{{cookiecutter.project_name}} = { editable = true, path = "." }
+
+[dev-packages]
+pytest = ">5"
+hypothesis = ">5"
+coverage = ">5"
+black = ">22"
+ruff = ">0.0.265"
+mypy = ">1.2"
+
+[requires]
+python_version = "3.11.3"
+
+#######
+### Custom Pipfile Directives
+#######

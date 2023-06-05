@@ -1,0 +1,41 @@
+PROJECT:='{{cookiecutter.project_name}}'
+DEV_IMAGE:='ghcr.io/iomorphic/dev-py:latest'
+SRC_FOLDER:='src'
+TEST_FOLDER:='tests'
+
+
+{% raw %}
+@default:
+    just --list
+
+@verify: lint typecheck test
+    echo "Done with Verification"
+
+@pr: init verify
+    echo "PR is successful!"
+
+@init:
+    [ -f Pipfile.lock ] && echo "Lockfile already exists" || pipenv lock
+    pipenv sync --dev
+
+@docker SUBCOMMAND:
+    echo "TODO: figure out how to run this with your local VENV"
+    docker run -i -v `pwd`:`pwd` -w `pwd` {{DEV_IMAGE}} just {{SUBCOMMAND}}
+
+@lint:
+    pipenv run ruff check {{SRC_FOLDER}} {{TEST_FOLDER}}
+
+@typecheck:
+    pipenv run mypy --explicit-package-bases -p {{PROJECT}}
+    pipenv run mypy --allow-untyped-defs tests
+
+@test:
+    pipenv run pytest --hypothesis-show-statistics {{TEST_FOLDER}}
+
+@format:
+    pipenv run ruff check --fix {{SRC_FOLDER}} {{TEST_FOLDER}}
+    pipenv run black --verbose {{SRC_FOLDER}} {{TEST_FOLDER}}
+{% endraw %}
+######
+## Custom Section
+######
