@@ -35,6 +35,6 @@ jobs:
       # Needed due to: https://github.com/actions/checkout/issues/766
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - env:
-          PUBLIC_REGISTRY_URL: ghcr.io/{{cookiecutter.project_name}}
-          PRIVATE_REGISTRY_URL: {{cookiecutter.docker_private_registry_dns}}/{{cookiecutter.project_name}}/images
+          PUBLIC_REGISTRY_URL: ghcr.io/{{cookiecutter.root_name}}
+          PRIVATE_REGISTRY_URL: {{cookiecutter.docker_private_registry_dns}}/{{cookiecutter.root_name}}/images
         run: just register images

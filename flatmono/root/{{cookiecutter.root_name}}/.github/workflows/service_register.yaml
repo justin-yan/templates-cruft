@@ -28,6 +28,6 @@ jobs:
       # Needed due to: https://github.com/actions/checkout/issues/766
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - env:
-          PRIVATE_REGISTRY_URL: {{cookiecutter.docker_private_registry_dns}}/{{cookiecutter.project_name}}/services
+          PRIVATE_REGISTRY_URL: {{cookiecutter.docker_private_registry_dns}}/{{cookiecutter.root_name}}/services
         run: just register services
 
