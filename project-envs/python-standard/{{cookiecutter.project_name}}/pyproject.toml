@@ -28,13 +28,13 @@ where = ["src"]
 [tool.black]
 line-length = 150
 skip-string-normalization = true
-target-version = ['py310']
+target-version = ['py311']
 include = '\.pyi?$'
 
 [tool.ruff]
 select = ["E", "F", "W", "I"]
 line-length = 150
-target-version = "py310"
+target-version = "py311"
 
 [tool.ruff.isort]
 known-first-party = ["{{cookiecutter.project_name}}"]
