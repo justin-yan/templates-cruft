@@ -21,13 +21,13 @@ jobs:
       - name: Authenticate via service-account with Google Artifact Registry
         uses: docker/login-action@v2
         with:
-          registry: {{ cookiecutter.docker_private_registry_dns }}
-          username: {{ cookiecutter.docker_private_registry_username }}
-          {% raw %}password: ${{ secrets.PRIVATE_REGISTRY_JSONKEY_B64 }}{% endraw %}
+          registry: {{ cookiecutter.gar_container_dns }}
+          username: _json_key_base64
+          {% raw %}password: ${{ secrets.GAR_JSONKEY_B64 }}{% endraw %}
 
       # Needed due to: https://github.com/actions/checkout/issues/766
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - env:
-          PRIVATE_REGISTRY_URL: {{cookiecutter.docker_private_registry_dns}}/{{cookiecutter.root_name}}/services
+          GAR_REGISTRY_URL: {{cookiecutter.gar_container_dns}}/{{cookiecutter.root_name}}/services
         run: just register services
 

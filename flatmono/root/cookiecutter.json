@@ -1,8 +1,6 @@
 {
     "root_name": "example",
     "github_username": "@justin-yan",
-    "python_private_repo_url": "https://example.com",
-    "python_private_repo_username": "example",
-    "docker_private_registry_dns": "example.com",
-    "docker_private_registry_username": "example"
+    "gar_pypi_url": "https://example.com",
+    "gar_container_dns": "example.com"
 }

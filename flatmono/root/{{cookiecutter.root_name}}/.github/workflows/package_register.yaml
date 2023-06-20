@@ -21,7 +21,7 @@ jobs:
       # Needed due to: https://github.com/actions/checkout/issues/766
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - env:
-          PY_PRIVATE_REPO_URL: {{ cookiecutter.python_private_repo_url }}
-          PY_PRIVATE_REPO_USERNAME: {{ cookiecutter.python_private_repo_username }}
-          {% raw %}PY_PRIVATE_REPO_PASSWORD: ${{ secrets.PRIVATE_REGISTRY_JSONKEY_B64 }}{% endraw %}
+          GAR_PYPI_URL: {{ cookiecutter.gar_pypi_url }}
+          GAR_PYPI_USERNAME: _json_key_base64
+          {% raw %}GAR_PYPI_PASSWORD: ${{ secrets.GAR_JSONKEY_B64 }}{% endraw %}
         run: just register packages
