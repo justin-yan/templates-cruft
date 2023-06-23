@@ -18,9 +18,9 @@ TEST_FOLDER:='tests'
     [ -f Pipfile.lock ] && echo "Lockfile already exists" || pipenv lock
     PIPENV_VENV_IN_PROJECT=1 pipenv sync --dev
 
+# docker host-mapped venv cannot be shared for localdev; container modified files not remapped to host user; pipenv sync is slow for subsequent cmds
 @docker SUBCOMMAND:
-    echo "TODO: figure out how to run this with your local VENV"
-    docker run -i -v `pwd`:`pwd` -w `pwd` {{DEV_IMAGE}} just {{SUBCOMMAND}}
+    docker run -i -v `pwd`:`pwd` -w `pwd` {{DEV_IMAGE}} just init {{SUBCOMMAND}}
 
 @lint:
     pipenv run ruff check {{SRC_FOLDER}} {{TEST_FOLDER}}
