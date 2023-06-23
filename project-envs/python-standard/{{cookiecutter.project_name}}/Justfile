@@ -16,7 +16,7 @@ TEST_FOLDER:='tests'
 
 @init:
     [ -f Pipfile.lock ] && echo "Lockfile already exists" || pipenv lock
-    pipenv sync --dev
+    PIPENV_VENV_IN_PROJECT=1 pipenv sync --dev
 
 @docker SUBCOMMAND:
     echo "TODO: figure out how to run this with your local VENV"
