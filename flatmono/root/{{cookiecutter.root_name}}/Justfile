@@ -112,7 +112,6 @@
         pip install --user pipx
         pipx ensurepath
         pipx install pipenv==2023.06.12
-        pipx install keyring && pipx inject keyring keyrings.google-artifactregistry-auth
     else
         echo "pipenv already installed"
     fi

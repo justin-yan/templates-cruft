@@ -3,8 +3,6 @@ on:
   pull_request:
     paths:
       - 'packages/**'
-env:
-  GOOGLE_APPLICATION_CREDENTIALS: '/tmp/gac.json'
 jobs:
   package-pr:
     runs-on: ubuntu-latest
@@ -18,9 +16,9 @@ jobs:
         with:
           fetch-depth: '0'
 
-      # Needed for keyring support
-      - run: {% raw %}echo ${{ secrets.GAR_JSONKEY_B64 }} | base64 -d > $GOOGLE_APPLICATION_CREDENTIALS{% endraw %}
-
       # Needed due to: https://github.com/actions/checkout/issues/766
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
-      - run: just pr packages
+      - env:
+          GAR_PYPI_USERNAME: _json_key_base64
+          {% raw %}GAR_PYPI_PASSWORD: ${{ secrets.GAR_JSONKEY_B64 }}{% endraw %}
+        run: just pr packages

@@ -5,8 +5,6 @@ on:
       - main
     paths:
       - 'services/**'
-env:
-  GOOGLE_APPLICATION_CREDENTIALS: '/tmp/gac.json'
 jobs:
   service-register:
     runs-on: ubuntu-latest
@@ -20,9 +18,6 @@ jobs:
         with:
           fetch-depth: '2'
 
-      # Needed for keyring support
-      - run: {% raw %}echo ${{ secrets.GAR_JSONKEY_B64 }} | base64 -d > $GOOGLE_APPLICATION_CREDENTIALS{% endraw %}
-
       - name: Authenticate via service-account with Google Artifact Registry
         uses: docker/login-action@v2
         with:
@@ -34,5 +29,6 @@ jobs:
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - env:
           GAR_REGISTRY_URL: {{cookiecutter.gar_container_dns}}/{{cookiecutter.root_name}}/services
+          GAR_PYPI_USERNAME: _json_key_base64
+          {% raw %}GAR_PYPI_PASSWORD: ${{ secrets.GAR_JSONKEY_B64 }}{% endraw %}
         run: just register services
-
