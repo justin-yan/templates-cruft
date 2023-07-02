@@ -74,6 +74,9 @@
         gcloud init
         gcloud auth application-default login
         gcloud auth configure-docker
+
+        echo 'export GAR_PYPI_USERNAME=oauth2accesstoken' >> ~/.bashrc
+        echo 'export GAR_PYPI_PASSWORD=$(gcloud auth print-access-token)' >> ~/.bashrc
     else
         echo "gcloud already installed"
     fi
