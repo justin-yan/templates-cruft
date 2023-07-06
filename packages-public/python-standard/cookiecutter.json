@@ -1,4 +1,6 @@
 {
     "package_name": "example",
-    "github_username": "@justin-yan"
+    "github_username": "@justin-yan",
+    "copyright_start_year": "2023",
+    "copyright_full_name": "Justin Yan"
 }
