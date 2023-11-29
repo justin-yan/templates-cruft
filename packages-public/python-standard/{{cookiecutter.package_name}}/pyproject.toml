@@ -8,7 +8,11 @@ version = "0.0.1"
 requires-python = ">=3.8"
 dependencies = [
     ######
-    ### Custom Dependencies Below
+    ### Custom Dependencies Section Begin
+    ######
+
+    ######
+    ### Custom Dependencies Section End
     ######
 ]
 
@@ -60,5 +64,9 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 ######
-### Custom Directives Below
+### Custom Directives Section Begin
+######
+
+######
+### Custom Directives Section End
 ######

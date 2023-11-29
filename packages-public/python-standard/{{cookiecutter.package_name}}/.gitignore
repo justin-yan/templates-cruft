@@ -12,5 +12,9 @@ dist/
 .venv
 
 ######
-## Custom Section
+## Custom Section Begin
+######
+
+######
+## Custom Section End
 ######
