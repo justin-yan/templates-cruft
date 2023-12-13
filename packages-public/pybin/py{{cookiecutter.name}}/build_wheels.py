@@ -57,8 +57,6 @@ def convert_archive_to_wheel(
         for entry in tar:
             if entry.isreg():
                 if entry.name.split('/')[-1] == f"{name}":
-                    # zip_info = ZipInfo()
-                    # zip_info.external_attr = ((entry.mode | (1 << 15)) & 0xFFFF) << 16
                     contents[f'{datadir}/scripts/{name}'] = tar.extractfile(entry).read()
 
     # Create distinfo
