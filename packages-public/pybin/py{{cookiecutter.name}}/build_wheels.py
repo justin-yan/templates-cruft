@@ -15,6 +15,7 @@ from wheel.wheelfile import WheelFile
 #######
 PLATFORMS = {
 }
+SUMMARY = ""
 LICENSE = ""
 #######
 ### End mapping section
@@ -62,11 +63,12 @@ def convert_archive_to_wheel(
 
     # Create distinfo
     tag = f'py3-none-{platform_tag}'
-    metadata = {'Summary': '',
+    metadata = {'Summary': SUMMARY,
                 'Description-Content-Type': 'text/markdown',
                 'License': LICENSE,
                 'Requires-Python': '~=3.5'}
-    description = ''
+    with open('README.md') as f:
+        description = f.read()
     dist_info = f'{package_name}-{pypi_version}.dist-info'
     contents[f'{dist_info}/METADATA'] = make_message({
             'Metadata-Version': '2.1',
