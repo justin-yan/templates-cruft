@@ -3,7 +3,7 @@ VERSION:=''
 PYPI_VERSION:=''
 URL:=''
 
-
+{% raw %}
 @default:
     just --list
 
@@ -19,3 +19,4 @@ URL:=''
 
 @_register: init build
     pipenv run twine upload -u $PYPI_USERNAME -p $PYPI_PASSWORD dist/*
+{% endraw %}
