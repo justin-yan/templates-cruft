@@ -20,5 +20,5 @@ jobs:
       - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - env:
           PYPI_USERNAME: __token__
-          PYPI_PASSWORD: ${{ secrets.PYPI_REGISTRY_KEY }}
+          {% raw %}PYPI_PASSWORD: ${{ secrets.PYPI_REGISTRY_KEY }}{% endraw %}
         run: just register
