@@ -1,4 +1,4 @@
-NAME:='{{cookiecutter.package_name}}'
+NAME:='{{cookiecutter.name}}'
 VERSION:=''
 PYPI_VERSION:=''
 URL:=''
