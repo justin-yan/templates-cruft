@@ -17,6 +17,7 @@ PLATFORMS = {
 }
 SUMMARY = ""
 LICENSE = ""
+REPO_URL = ""
 #######
 ### End mapping section
 #######
@@ -64,7 +65,9 @@ def convert_archive_to_wheel(
     metadata = {'Summary': SUMMARY,
                 'Description-Content-Type': 'text/markdown',
                 'License': LICENSE,
-                'Requires-Python': '~=3.5'}
+                'Requires-Python': '~=3.5',
+                'Project-URL': f'Repository, {REPO_URL}',
+                }
     with open('README.md') as f:
         description = f.read()
     dist_info = f'{package_name}-{pypi_version}.dist-info'
