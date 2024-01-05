@@ -48,7 +48,7 @@ virt SUBCOMMAND FORCE="noforce":
 
 @format:
     pipenv run ruff check --fix {{SRC_FOLDER}} {{TEST_FOLDER}}
-    pipenv run black --verbose {{SRC_FOLDER}} {{TEST_FOLDER}}
+    pipenv run ruff format {{SRC_FOLDER}} {{TEST_FOLDER}}
 
 @stats:
     pipenv run coverage run -m pytest {{TEST_FOLDER}}
