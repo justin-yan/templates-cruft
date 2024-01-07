@@ -38,6 +38,7 @@ virt SUBCOMMAND FORCE="noforce":
 
 @lint:
     pipenv run ruff check {{SRC_FOLDER}} {{TEST_FOLDER}}
+    pipenv run ruff format --check {{SRC_FOLDER}} {{TEST_FOLDER}}
 
 @typecheck:
     pipenv run mypy --explicit-package-bases -p {{NAME}}
