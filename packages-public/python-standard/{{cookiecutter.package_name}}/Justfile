@@ -48,7 +48,7 @@ virt SUBCOMMAND FORCE="noforce":
     pipenv run pytest --hypothesis-show-statistics {{TEST_FOLDER}}
 
 @format:
-    pipenv run ruff check --fix {{SRC_FOLDER}} {{TEST_FOLDER}}
+    pipenv run ruff check --fix-only {{SRC_FOLDER}} {{TEST_FOLDER}}
     pipenv run ruff format {{SRC_FOLDER}} {{TEST_FOLDER}}
 
 @stats:
