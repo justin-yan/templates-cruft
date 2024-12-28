@@ -60,7 +60,7 @@ virt SUBCOMMAND FORCE="noforce":
     uv lock
 
 @sync:
-    uv sync
+    uv sync --all-extras
 
 @repl:
     uv run python
