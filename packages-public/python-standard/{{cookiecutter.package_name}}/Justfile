@@ -36,23 +36,23 @@ sync FORCE="noforce":
     echo "Done with Verification"
 
 @lint:
-    uv run --frozen ruff check {{SRC_FOLDER}} {{TEST_FOLDER}}
-    uv run --frozen ruff format --check {{SRC_FOLDER}} {{TEST_FOLDER}}
+    uv run --no-sync ruff check {{SRC_FOLDER}} {{TEST_FOLDER}}
+    uv run --no-sync ruff format --check {{SRC_FOLDER}} {{TEST_FOLDER}}
 
 @typecheck:
-    uv run --frozen mypy --explicit-package-bases -p {{NAME}}
-    uv run --frozen mypy --allow-untyped-defs tests
+    uv run --no-sync mypy --explicit-package-bases -p {{NAME}}
+    uv run --no-sync mypy --allow-untyped-defs tests
 
 @test:
-    uv run --frozen pytest --hypothesis-show-statistics {{TEST_FOLDER}}
+    uv run --no-sync pytest --hypothesis-show-statistics {{TEST_FOLDER}}
 
 @format:
-    uv run --frozen ruff check --fix-only {{SRC_FOLDER}} {{TEST_FOLDER}}
-    uv run --frozen ruff format {{SRC_FOLDER}} {{TEST_FOLDER}}
+    uv run --no-sync ruff check --fix-only {{SRC_FOLDER}} {{TEST_FOLDER}}
+    uv run --no-sync ruff format {{SRC_FOLDER}} {{TEST_FOLDER}}
 
 @stats:
-    uv run --frozen coverage run -m pytest {{TEST_FOLDER}}
-    uv run --frozen coverage report -m
+    uv run --no-sync coverage run -m pytest {{TEST_FOLDER}}
+    uv run --no-sync coverage report -m
     scc --by-file --include-ext py
 
 @cicd-pr: init verify
@@ -65,14 +65,14 @@ sync FORCE="noforce":
     uv publish -u $PYPI_USERNAME -p $PYPI_PASSWORD dist/*
 
 @repl:
-    uv run --frozen python
+    uv run --no-sync python
 
 @shell:
     #!/usr/bin/env bash
     pipenv shell
 
 @run +COMMAND:
-    uv run --frozen {{COMMAND}}
+    uv run --no-sync {{COMMAND}}
 {% endraw %}
 ######
 ## Custom Section Begin
